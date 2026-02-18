@@ -1,14 +1,16 @@
-import streamlit as st
-from transformers import pipeline
-
-st.set_page_config(page_title="CareAssist AI", layout="centered")
-
-st.title("CareAssist AI")
-st.caption("Educational demo. Not medical advice. Verify outputs with official clinician instructions.")
-
-@st.cache_resource
-def load_model():
-    return pipeline("text2text-generation", model="google/flan-t5-small")
+    import streamlit as st
+    from transformers import pipeline
+    
+    st.set_page_config(page_title="CareAssist AI", layout="centered")
+    
+    st.title("CareAssist AI")
+    st.caption("Educational demo. Not medical advice. Verify outputs with official clinician instructions.")
+    
+    @st.cache_resource
+    def load_model():
+        tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-base")
+        model = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-base")
+        return pipeline("text2text-generation", model="google/flan-t5-base")
 
 model = load_model()
 
